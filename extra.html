@@ -38,40 +38,10 @@
 
   };
 
-//
-//
-// function ignition1(){
-//     URL = "https://teachablemachine.withgoogle.com/models/G9FO6NyQD/";
-//     init();
-// }
-// function ignition2(){
-//     URL = "https://teachablemachine.withgoogle.com/models/rYgHYElG9/";
-//     init();
-// }
-function ModelWait(){
-  if(ModelFlag == 1 || ModelFlag == "1"){
-    URL = "https://teachablemachine.withgoogle.com/models/G9FO6NyQD/";
-    console.log("1");
-  }
-  else if (ModelFlag == 2 || ModelFlag == "2") {
-    URL = "https://teachablemachine.withgoogle.com/models/rYgHYElG9/";
-    console.log("2");
-  }
-  else if (ModelFlag == 3 || ModelFlag == "3") {
-    URL = "https://teachablemachine.withgoogle.com/models/rYgHYElG9/";
-    console.log("3");
-  }
-  else if (ModelFlag == 4 || ModelFlag == "4") {
-    URL = "https://teachablemachine.withgoogle.com/models/rYgHYElG9/";
-    console.log("4");
-  }
-  else console.log("6");
-}
 
 
     async function init() {
 
-      await ModelWait();
 
 
         const modelURL = URL + "model.json";
