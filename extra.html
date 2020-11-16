@@ -25,23 +25,18 @@
     var maxcount;
     var ModelFlag;
     var diff = 0.7; //난이도 (변경 가능)
-    var URL = "https://teachablemachine.withgoogle.com/models/G9FO6NyQD/";
+    var URL = "https://teachablemachine.withgoogle.com/models/8I5aObd0r/";
 
     window.onload = function(){
     //안드로이드로부터 얼마나 많은 세트, 운동횟수를 할 것 인지 받아옴
     window.Android.howmany();
-    // window.Android.Model();
-      // URL = "https://teachablemachine.withgoogle.com/models/G9FO6NyQD/"; //가변 URL
 
 
     init(); //초기화
 
   };
 
-
-
     async function init() {
-
 
 
         const modelURL = URL + "model.json";
@@ -110,43 +105,48 @@
     async function countable() { //운동 동작마다 필요한 class 수가 달라서 아마 카운트, 동작제어 등 다 따로 짜야될 듯..?
       predict();
         if(action1 > 0.9){
-          if(status == "squat"){
+          if(status == "Ready2Count"){
             count++;
             score = "excellent";
           }
           status = "stand";
         }
-        else if(action2 > diff){
-          status = "squat";
+        else if(action2 > 0.9){
+        	if(status == "lunge"){
+        		status = "Ready2Count";
+          }
         }
-        else if(action3 > 0.3){
-          if(status == "stand" || status == "squat"){
+        else if(action3>diff){
+          status = "lunge";
+        }
+        else if (action 4 > 0.3){
+          if(status == "stand" || status == "lunge" || status =="Ready2Count"){
             score = "bad";
             window.Android.PlayAudio();
           }
           status = "bent";
         }
+
         const wcprint = '상태' + score + '갯수 :' + count +'세트 :'+ set;
         wc.innerHTML = wcprint;
 
-        if(set == maxset) {
-          const end = '종료!';
-          fin(1);
-          window.Android.endcam();
-          dn.innerHTML = end;
-          setTimeout(function(){
-            set = 0;
-          dn.innerHTML = '';
-        },3000);
-        }
-        else if (count == maxcount ){
+        if (count == maxcount){
           set++;
           count = 0;
-          fin(0);
-          window.Android.sendset(set);
+          if(set != maxset){
+            fin(0);
+            window.Android.sendset(set);
+          } else {
+            fin(1);
+            window.Android.endcam();
+            set=0;
+          }
         }
-    ts.innerHTML = maxset;
-  }
+      ts.innerHTML = maxset;
+      }
+
+
+
 
 
 
